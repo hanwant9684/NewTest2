@@ -220,13 +220,16 @@ APP_URL=https://your-custom-domain.com
 
 ## Recent Changes (2025-10-10)
 
-### Latest Updates
+### Latest Updates (Today)
+- ✅ **Auto-Delete Promo Messages** - "Downloads remaining" message auto-deletes after 10 seconds
+- ✅ **Enhanced Download Complete Buttons** - Direct ad access & full upgrade info on button clicks
+- ✅ **Android VPS Deployment Guide** - Complete IONOS VPS setup guide for Android users (IONOS_VPS_Deployment_Android.txt)
+
+### Previous Updates
 - ✅ **10 Ad Slot Support** - Configure up to 10 Monetag ads (AD_ID_1 through AD_ID_10)
 - ✅ **Dynamic Ad Rendering** - Template automatically adjusts based on configured ads
 - ✅ **Fixed Ad Display Issues** - Added proper iframe sandbox permissions (allow-forms, allow-top-navigation)
 - ✅ **Railway Deployment Optimization** - Using gunicorn for 50% faster performance
-
-### Previous Updates
 - ✅ **Removed Adsterra and Adsgram** - Now using Monetag only
 - ✅ **Simplified configuration** - Fewer environment variables needed
 - ✅ **Removed /watchad command** - Use /getpremium for ads

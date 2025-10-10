@@ -1,0 +1,386 @@
+===============================================
+IONOS VPS DEPLOYMENT GUIDE FOR ANDROID USERS
+===============================================
+
+This guide will help you deploy your Telegram Bot on IONOS VPS using your Android device.
+
+📱 REQUIREMENTS:
+- Android device with internet connection
+- IONOS VPS account (with Ubuntu/Debian server)
+- SSH client app for Android (Termux or JuiceSSH recommended)
+
+===============================================
+STEP 1: INSTALL SSH CLIENT ON ANDROID
+===============================================
+
+Option A: Termux (Free, Terminal-based)
+1. Download Termux from F-Droid or Google Play Store
+2. Open Termux and update packages:
+   pkg update && pkg upgrade
+
+3. Install OpenSSH:
+   pkg install openssh
+
+Option B: JuiceSSH (Free, User-friendly GUI)
+1. Download JuiceSSH from Google Play Store
+2. Open the app and create a new connection
+3. Skip to Step 2
+
+===============================================
+STEP 2: CONNECT TO YOUR IONOS VPS
+===============================================
+
+You'll need these details from IONOS:
+- Server IP address (e.g., 123.45.67.89)
+- Username (usually "root" or "ubuntu")
+- Password or SSH key
+
+Using Termux:
+ssh root@YOUR_SERVER_IP
+
+Using JuiceSSH:
+1. Tap "Connections" → "+" button
+2. Enter:
+   - Nickname: My IONOS VPS
+   - Type: SSH
+   - Address: YOUR_SERVER_IP
+   - Username: root
+   - Authentication: Password
+   - Password: YOUR_PASSWORD
+3. Tap checkmark to save
+4. Tap the connection to connect
+
+===============================================
+STEP 3: PREPARE YOUR VPS SERVER
+===============================================
+
+Once connected to your VPS, run these commands one by one:
+
+1. Update system packages:
+   sudo apt update && sudo apt upgrade -y
+
+2. Install Python 3.11 and pip:
+   sudo apt install python3.11 python3.11-venv python3-pip git -y
+
+3. Verify Python installation:
+   python3.11 --version
+
+===============================================
+STEP 4: UPLOAD YOUR BOT FILES
+===============================================
+
+Option A: Using Git (Recommended):
+1. Upload your code to GitHub (private repository recommended)
+2. On VPS, clone your repository:
+   cd ~
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   cd YOUR_REPO_NAME
+
+Option B: Using SFTP from Android:
+1. Install "Termux:Widget" or "CX File Explorer" app
+2. Connect via SFTP to your VPS
+3. Upload all bot files to /root/telegram-bot/
+
+===============================================
+STEP 5: INSTALL BOT DEPENDENCIES
+===============================================
+
+In your bot directory, run:
+
+1. Create virtual environment (optional but recommended):
+   python3.11 -m venv venv
+   source venv/bin/activate
+
+2. Install requirements:
+   pip install -r requirements.txt
+
+===============================================
+STEP 6: CONFIGURE ENVIRONMENT VARIABLES
+===============================================
+
+Create config.env file with your credentials:
+
+nano config.env
+
+Add the following (replace with your actual values):
+
+# Telegram Bot Configuration
+API_ID=12345678
+API_HASH=your_api_hash_here
+BOT_TOKEN=your_bot_token_here
+OWNER_ID=your_telegram_user_id
+MONGODB_URI=your_mongodb_connection_string
+
+# App URL (Important!)
+APP_URL=https://your-vps-ip-or-domain.com
+
+# Monetag Ads (Optional - add only slots you want to use)
+AD_ID_1=your_zone_id_1
+AD_ID_2=your_zone_id_2
+AD_ID_3=your_zone_id_3
+
+# Payment Configuration (Optional)
+ADMIN_USERNAME=your_telegram_username
+PAYPAL_URL=your_paypal_payment_link
+UPI_ID=your_upi_id
+
+Save and exit:
+- Press CTRL+X
+- Press Y
+- Press Enter
+
+===============================================
+STEP 7: SET UP MONGODB DATABASE
+===============================================
+
+You need MongoDB for the bot to work. Two options:
+
+Option A: MongoDB Atlas (Free Cloud Database - Recommended):
+1. Go to mongodb.com/atlas on your phone browser
+2. Create free account and cluster
+3. Get connection string
+4. Add to config.env as MONGODB_URI
+
+Option B: Install MongoDB on VPS:
+1. Install MongoDB:
+   wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
+   echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+   sudo apt update
+   sudo apt install -y mongodb-org
+   sudo systemctl start mongod
+   sudo systemctl enable mongod
+
+2. Set MONGODB_URI in config.env:
+   MONGODB_URI=mongodb://localhost:27017/telegram_bot
+
+===============================================
+STEP 8: TEST YOUR BOT
+===============================================
+
+Run the bot to test:
+
+python server.py
+
+If you see "Bot Started!" - it's working!
+Press CTRL+C to stop.
+
+===============================================
+STEP 9: RUN BOT 24/7 (PRODUCTION)
+===============================================
+
+Option A: Using Screen (Recommended for Android):
+1. Install screen:
+   sudo apt install screen -y
+
+2. Create new screen session:
+   screen -S telegram-bot
+
+3. Run the bot:
+   python server.py
+
+4. Detach from screen (bot keeps running):
+   Press CTRL+A, then press D
+
+5. To check bot again later:
+   screen -r telegram-bot
+
+Option B: Using systemd (More stable):
+1. Create service file:
+   sudo nano /etc/systemd/system/telegram-bot.service
+
+2. Add this content (adjust paths):
+   [Unit]
+   Description=Telegram Bot
+   After=network.target
+
+   [Service]
+   Type=simple
+   User=root
+   WorkingDirectory=/root/YOUR_BOT_FOLDER
+   ExecStart=/usr/bin/python3.11 /root/YOUR_BOT_FOLDER/server.py
+   Restart=always
+   RestartSec=10
+
+   [Install]
+   WantedBy=multi-user.target
+
+3. Save and exit (CTRL+X, Y, Enter)
+
+4. Enable and start service:
+   sudo systemctl daemon-reload
+   sudo systemctl enable telegram-bot
+   sudo systemctl start telegram-bot
+
+5. Check status:
+   sudo systemctl status telegram-bot
+
+6. View logs:
+   sudo journalctl -u telegram-bot -f
+
+===============================================
+STEP 10: CONFIGURE DOMAIN (OPTIONAL)
+===============================================
+
+If you have a domain name:
+
+1. Point domain to your VPS IP in your domain registrar
+2. Install Nginx:
+   sudo apt install nginx certbot python3-certbot-nginx -y
+
+3. Create Nginx config:
+   sudo nano /etc/nginx/sites-available/telegram-bot
+
+4. Add this content:
+   server {
+       listen 80;
+       server_name yourdomain.com;
+       
+       location / {
+           proxy_pass http://localhost:5000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_cache_bypass $http_upgrade;
+       }
+   }
+
+5. Enable site:
+   sudo ln -s /etc/nginx/sites-available/telegram-bot /etc/nginx/sites-enabled/
+   sudo nginx -t
+   sudo systemctl reload nginx
+
+6. Get SSL certificate:
+   sudo certbot --nginx -d yourdomain.com
+
+7. Update APP_URL in config.env:
+   APP_URL=https://yourdomain.com
+
+8. Restart bot:
+   sudo systemctl restart telegram-bot
+
+===============================================
+USEFUL COMMANDS FOR ANDROID USERS
+===============================================
+
+Check if bot is running:
+ps aux | grep python
+
+Stop bot (if running in foreground):
+CTRL+C
+
+Kill bot process:
+pkill -f server.py
+
+View bot logs:
+tail -f logs.txt
+
+Restart bot (systemd):
+sudo systemctl restart telegram-bot
+
+Update bot code (if using git):
+git pull
+sudo systemctl restart telegram-bot
+
+Check VPS resources:
+htop    (press q to exit)
+df -h   (disk usage)
+free -h (memory usage)
+
+===============================================
+TROUBLESHOOTING
+===============================================
+
+Bot won't start:
+1. Check logs: tail -f logs.txt
+2. Verify config.env has all required values
+3. Make sure MongoDB is running
+4. Check Python version: python3.11 --version
+
+Port 5000 already in use:
+sudo lsof -i :5000
+sudo kill -9 PID_NUMBER
+
+Permission denied errors:
+sudo chmod +x server.py
+sudo chown -R $USER:$USER .
+
+SSH connection lost:
+1. Reconnect using Termux or JuiceSSH
+2. Reattach to screen: screen -r telegram-bot
+   OR
+3. Check systemd service: sudo systemctl status telegram-bot
+
+===============================================
+SECURITY TIPS
+===============================================
+
+1. Change default SSH port:
+   sudo nano /etc/ssh/sshd_config
+   Change "Port 22" to "Port 2222"
+   sudo systemctl restart sshd
+
+2. Disable root login (create new user first):
+   sudo adduser botadmin
+   sudo usermod -aG sudo botadmin
+   sudo nano /etc/ssh/sshd_config
+   Change "PermitRootLogin yes" to "PermitRootLogin no"
+
+3. Set up firewall:
+   sudo ufw allow 2222/tcp  # SSH port
+   sudo ufw allow 80/tcp    # HTTP
+   sudo ufw allow 443/tcp   # HTTPS
+   sudo ufw enable
+
+4. Never share config.env file
+5. Use strong passwords
+6. Enable 2FA on your IONOS account
+
+===============================================
+ANDROID SSH TIPS
+===============================================
+
+1. Keep screen on while deploying:
+   Settings → Display → Screen timeout → 30 minutes
+
+2. Use external keyboard if available
+   Makes typing commands much easier
+
+3. Save connection in JuiceSSH
+   Quick access for future updates
+
+4. Install "Hacker's Keyboard" app
+   Better keyboard for terminal use
+
+5. Use copy-paste for long commands
+   Long-press to paste in Termux/JuiceSSH
+
+===============================================
+NEED HELP?
+===============================================
+
+- Check bot logs: tail -f logs.txt
+- View systemd logs: sudo journalctl -u telegram-bot -f
+- Restart services: sudo systemctl restart telegram-bot
+- Test MongoDB: mongosh (if installed locally)
+
+For MongoDB Atlas issues:
+- Check network access (whitelist 0.0.0.0/0)
+- Verify database user credentials
+- Test connection string
+
+===============================================
+CONGRATULATIONS!
+===============================================
+
+Your Telegram bot is now running 24/7 on IONOS VPS!
+
+Test your bot on Telegram:
+1. Open Telegram
+2. Search for your bot (@YourBotUsername)
+3. Send /start command
+4. Try downloading a post
+
+Your bot will keep running even after you close Termux/JuiceSSH!
+
+===============================================

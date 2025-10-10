@@ -1111,18 +1111,92 @@ async def callback_handler(client: Client, callback_query: CallbackQuery):
     
     if data == "get_free_premium":
         await callback_query.answer()
-        await callback_query.message.reply(
-            "🎁 **Get FREE Premium!**\n\n"
-            "Watch short ads and get 30 minutes of premium access!\n\n"
-            "👉 Use command: `/getpremium`"
+        
+        user_id = callback_query.from_user.id
+        user_type = db.get_user_type(user_id)
+        
+        if user_type == 'paid':
+            user = db.get_user(user_id)
+            expiry_date_str = user.get('subscription_end', 'N/A')
+            await callback_query.message.reply(
+                f"✅ **You already have premium subscription!**\n\n"
+                f"📅 **Valid until:** {expiry_date_str}\n\n"
+                f"No need to watch ads! Enjoy unlimited downloads."
+            )
+            return
+        
+        bot_domain = PyroConf.get_app_url()
+        verification_code, ad_url = ad_monetization.generate_ad_link(user_id, bot_domain)
+        
+        premium_text = (
+            f"🎬 **Get {PREMIUM_DURATION_MINUTES} minutes of FREE premium!**\n\n"
+            "**How it works:**\n"
+            "1️⃣ Click the button below\n"
+            "2️⃣ Watch the complete ad (30 seconds)\n"
+            "3️⃣ Your verification code will appear after the ad\n"
+            "4️⃣ Copy the code and send: `/verifypremium <code>`\n\n"
+            "⚠️ **Important:** You MUST watch the complete ad to get your code!\n\n"
+            "⏱️ Code expires in 30 minutes"
         )
+        
+        markup = InlineKeyboardMarkup([
+            [InlineKeyboardButton("📺 Watch Ad & Get Code", url=ad_url)]
+        ])
+        
+        await callback_query.message.reply(premium_text, reply_markup=markup)
+        
     elif data == "get_paid_premium":
         await callback_query.answer()
-        await callback_query.message.reply(
-            "💰 **Get Paid Premium!**\n\n"
-            "$1 for 30 days of unlimited access!\n\n"
-            "👉 Use command: `/upgrade`"
+        
+        upgrade_text = (
+            "💎 **Upgrade to Premium**\n\n"
+            "**Premium Features:**\n"
+            "✅ Unlimited downloads per day\n"
+            "✅ Batch download support (/bdl command)\n"
+            "✅ Download up to 20 posts at once\n"
+            "✅ Priority support\n"
+            "✅ No daily limits\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "**🎯 Option 1: Watch Ads (FREE)**\n"
+            f"⏱️ **{PREMIUM_DURATION_MINUTES} Minutes Premium Access**\n"
+            "📺 Just watch a short video ad!\n\n"
+            "**How it works:**\n"
+            "1️⃣ Use `/getpremium` command\n"
+            "2️⃣ Click the ad link and watch video\n"
+            "3️⃣ Get verification code\n"
+            "4️⃣ Send code back to bot\n"
+            f"5️⃣ Enjoy {PREMIUM_DURATION_MINUTES} minutes of premium! 🎉\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "**💰 Option 2: Monthly Subscription**\n"
+            "💵 **30 Days Premium = $1 USD**\n\n"
+            "**How to Subscribe:**\n"
         )
+        
+        if PyroConf.PAYPAL_URL or PyroConf.UPI_ID:
+            upgrade_text += "1️⃣ **Make Payment:**\n"
+            
+            if PyroConf.PAYPAL_URL:
+                upgrade_text += f"   💳 PayPal: {PyroConf.PAYPAL_URL}\n"
+            
+            if PyroConf.UPI_ID:
+                upgrade_text += f"   📱 UPI: `{PyroConf.UPI_ID}`\n"
+            
+            upgrade_text += "\n"
+        
+        if PyroConf.ADMIN_USERNAME:
+            upgrade_text += f"2️⃣ **Contact Admin:**\n   👤 @{PyroConf.ADMIN_USERNAME}\n\n"
+        else:
+            upgrade_text += f"2️⃣ **Contact Admin:**\n   👤 Contact the bot owner\n\n"
+        
+        upgrade_text += (
+            "3️⃣ **Send Payment Proof:**\n"
+            "   Send screenshot/transaction ID to admin\n\n"
+            "4️⃣ **Get Activated:**\n"
+            "   Admin will activate your premium within 24 hours!"
+        )
+        
+        await callback_query.message.reply(upgrade_text, disable_web_page_preview=True)
+        
     else:
         await broadcast_callback_handler(client, callback_query)
 
