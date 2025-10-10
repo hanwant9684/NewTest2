@@ -223,6 +223,7 @@ APP_URL=https://your-custom-domain.com
 ## Recent Changes (2025-10-10)
 
 ### Latest Updates (Today)
+- ✅ **Fixed Ad Premium Button** - Inline "🎁 FREE Premium (Ads)" button now properly opens ad page with direct URL button
 - ✅ **Auto-Delete Promo Messages** - "Downloads remaining" message auto-deletes after 10 seconds
 - ✅ **Direct Ad Link Button** - "Free Premium" button instantly opens ad page in browser
 - ✅ **Multiple Payment Methods** - Added Amazon Pay/Gift Card and Crypto (USDT/BTC/ETH) payment options

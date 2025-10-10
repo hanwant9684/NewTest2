@@ -11,3 +11,15 @@ pymongo
 dnspython
 gunicorn
 requests
+dnspython
+flask
+gunicorn
+pillow
+psutil
+Pyleaves
+pymongo
+Pyrofork
+pyrogram
+python-dotenv
+TgCrypto
+uvloop

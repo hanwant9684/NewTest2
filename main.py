@@ -1128,7 +1128,24 @@ async def callback_handler(client: Client, callback_query: CallbackQuery):
         bot_domain = PyroConf.get_app_url()
         verification_code, ad_url = ad_monetization.generate_ad_link(user_id, bot_domain)
         
-        await callback_query.answer(url=ad_url)
+        premium_text = (
+            f"🎬 **Get {PREMIUM_DURATION_MINUTES} minutes of FREE premium!**\n\n"
+            "**How it works:**\n"
+            "1️⃣ Click the button below\n"
+            "2️⃣ Watch the complete ad (30 seconds)\n"
+            "3️⃣ Your verification code will appear after the ad\n"
+            "4️⃣ Copy the code and send: `/verifypremium <code>`\n\n"
+            "⚠️ **Important:** You MUST watch the complete ad to get your code!\n\n"
+            "⏱️ Code expires in 30 minutes"
+        )
+        
+        markup = InlineKeyboardMarkup([
+            [InlineKeyboardButton("📺 Watch Ad & Get Code", url=ad_url)]
+        ])
+        
+        await callback_query.answer()
+        await callback_query.message.reply(premium_text, reply_markup=markup, disable_web_page_preview=True)
+        LOGGER(__name__).info(f"User {user_id} requested ad-based premium via button")
         
     elif data == "get_paid_premium":
         await callback_query.answer()
