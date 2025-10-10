@@ -123,6 +123,8 @@ AD_ID_3=your_zone_id_3
 ADMIN_USERNAME=your_telegram_username
 PAYPAL_URL=your_paypal_payment_link
 UPI_ID=your_upi_id
+AMAZON_PAY_ID=your_amazon_pay_id_or_email
+CRYPTO_ADDRESS=your_crypto_wallet_address
 
 Save and exit:
 - Press CTRL+X

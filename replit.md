@@ -65,6 +65,8 @@ For free premium access via ads - **supports up to 10 ad slots**:
 - `ADMIN_USERNAME`: Admin Telegram username for payment contact
 - `PAYPAL_URL`: PayPal payment link
 - `UPI_ID`: UPI ID for payments (India)
+- `AMAZON_PAY_ID`: Amazon Pay ID or Gift Card redemption email
+- `CRYPTO_ADDRESS`: Cryptocurrency wallet address (USDT/BTC/ETH)
 
 ### 4. First Time Setup
 - Bot automatically connects to MongoDB on first run
@@ -208,7 +210,7 @@ APP_URL=https://your-custom-domain.com
 - Repeat anytime for more premium time
 
 ### Option 2: Monthly Subscription ($1 USD)
-- Pay $1 via PayPal or UPI
+- Pay $1 via PayPal, UPI, Amazon Pay/Gift Card, or Crypto
 - Contact admin with payment proof
 - Get 30 days of premium access
 - Unlimited downloads + batch features
@@ -222,7 +224,9 @@ APP_URL=https://your-custom-domain.com
 
 ### Latest Updates (Today)
 - ✅ **Auto-Delete Promo Messages** - "Downloads remaining" message auto-deletes after 10 seconds
-- ✅ **Enhanced Download Complete Buttons** - Direct ad access & full upgrade info on button clicks
+- ✅ **Direct Ad Link Button** - "Free Premium" button instantly opens ad page in browser
+- ✅ **Multiple Payment Methods** - Added Amazon Pay/Gift Card and Crypto (USDT/BTC/ETH) payment options
+- ✅ **Enhanced Upgrade Button** - "Paid Premium" button shows complete payment & subscription details
 - ✅ **Android VPS Deployment Guide** - Complete IONOS VPS setup guide for Android users (IONOS_VPS_Deployment_Android.txt)
 
 ### Previous Updates

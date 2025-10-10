@@ -1045,14 +1045,22 @@ async def upgrade_command(client: Client, message: Message):
     )
     
     # Add payment information if configured
-    if PyroConf.PAYPAL_URL or PyroConf.UPI_ID:
-        upgrade_text += "1️⃣ **Make Payment:**\n"
+    payment_methods_available = PyroConf.PAYPAL_URL or PyroConf.UPI_ID or PyroConf.AMAZON_PAY_ID or PyroConf.CRYPTO_ADDRESS
+    
+    if payment_methods_available:
+        upgrade_text += "1️⃣ **Make Payment (Choose any method):**\n"
         
         if PyroConf.PAYPAL_URL:
-            upgrade_text += f"   💳 PayPal: {PyroConf.PAYPAL_URL}\n"
+            upgrade_text += f"   💳 **PayPal:** {PyroConf.PAYPAL_URL}\n"
         
         if PyroConf.UPI_ID:
-            upgrade_text += f"   📱 UPI: `{PyroConf.UPI_ID}`\n"
+            upgrade_text += f"   📱 **UPI (India):** `{PyroConf.UPI_ID}`\n"
+        
+        if PyroConf.AMAZON_PAY_ID:
+            upgrade_text += f"   🛒 **Amazon Pay/Gift Card:** `{PyroConf.AMAZON_PAY_ID}`\n"
+        
+        if PyroConf.CRYPTO_ADDRESS:
+            upgrade_text += f"   ₿ **Crypto (USDT/BTC/ETH):** `{PyroConf.CRYPTO_ADDRESS}`\n"
         
         upgrade_text += "\n"
     
@@ -1110,40 +1118,17 @@ async def callback_handler(client: Client, callback_query: CallbackQuery):
     data = callback_query.data
     
     if data == "get_free_premium":
-        await callback_query.answer()
-        
         user_id = callback_query.from_user.id
         user_type = db.get_user_type(user_id)
         
         if user_type == 'paid':
-            user = db.get_user(user_id)
-            expiry_date_str = user.get('subscription_end', 'N/A')
-            await callback_query.message.reply(
-                f"✅ **You already have premium subscription!**\n\n"
-                f"📅 **Valid until:** {expiry_date_str}\n\n"
-                f"No need to watch ads! Enjoy unlimited downloads."
-            )
+            await callback_query.answer("You already have premium subscription!", show_alert=True)
             return
         
         bot_domain = PyroConf.get_app_url()
         verification_code, ad_url = ad_monetization.generate_ad_link(user_id, bot_domain)
         
-        premium_text = (
-            f"🎬 **Get {PREMIUM_DURATION_MINUTES} minutes of FREE premium!**\n\n"
-            "**How it works:**\n"
-            "1️⃣ Click the button below\n"
-            "2️⃣ Watch the complete ad (30 seconds)\n"
-            "3️⃣ Your verification code will appear after the ad\n"
-            "4️⃣ Copy the code and send: `/verifypremium <code>`\n\n"
-            "⚠️ **Important:** You MUST watch the complete ad to get your code!\n\n"
-            "⏱️ Code expires in 30 minutes"
-        )
-        
-        markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton("📺 Watch Ad & Get Code", url=ad_url)]
-        ])
-        
-        await callback_query.message.reply(premium_text, reply_markup=markup)
+        await callback_query.answer(url=ad_url)
         
     elif data == "get_paid_premium":
         await callback_query.answer()
@@ -1172,14 +1157,22 @@ async def callback_handler(client: Client, callback_query: CallbackQuery):
             "**How to Subscribe:**\n"
         )
         
-        if PyroConf.PAYPAL_URL or PyroConf.UPI_ID:
-            upgrade_text += "1️⃣ **Make Payment:**\n"
+        payment_methods_available = PyroConf.PAYPAL_URL or PyroConf.UPI_ID or PyroConf.AMAZON_PAY_ID or PyroConf.CRYPTO_ADDRESS
+        
+        if payment_methods_available:
+            upgrade_text += "1️⃣ **Make Payment (Choose any method):**\n"
             
             if PyroConf.PAYPAL_URL:
-                upgrade_text += f"   💳 PayPal: {PyroConf.PAYPAL_URL}\n"
+                upgrade_text += f"   💳 **PayPal:** {PyroConf.PAYPAL_URL}\n"
             
             if PyroConf.UPI_ID:
-                upgrade_text += f"   📱 UPI: `{PyroConf.UPI_ID}`\n"
+                upgrade_text += f"   📱 **UPI (India):** `{PyroConf.UPI_ID}`\n"
+            
+            if PyroConf.AMAZON_PAY_ID:
+                upgrade_text += f"   🛒 **Amazon Pay/Gift Card:** `{PyroConf.AMAZON_PAY_ID}`\n"
+            
+            if PyroConf.CRYPTO_ADDRESS:
+                upgrade_text += f"   ₿ **Crypto (USDT/BTC/ETH):** `{PyroConf.CRYPTO_ADDRESS}`\n"
             
             upgrade_text += "\n"
         
