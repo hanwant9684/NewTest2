@@ -1,0 +1,75 @@
+modules = ["web", "bash", "python-3.11"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["cacert", "freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libuv", "libwebp", "libxcrypt", "openjpeg", "tcl", "tk", "zlib"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Bot Server"
+
+[[workflows.workflow]]
+name = "Bot Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python server.py"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 34195
+externalPort = 5000
+
+[[ports]]
+localPort = 34405
+externalPort = 5173
+
+[[ports]]
+localPort = 35339
+externalPort = 3000
+
+[[ports]]
+localPort = 37335
+externalPort = 6000
+
+[[ports]]
+localPort = 37409
+externalPort = 3003
+
+[[ports]]
+localPort = 39399
+externalPort = 4200
+
+[[ports]]
+localPort = 42949
+externalPort = 3001
+
+[[ports]]
+localPort = 44263
+externalPort = 6800
+
+[[ports]]
+localPort = 46407
+externalPort = 3002
+
+[deployment]
+deploymentTarget = "vm"
+run = ["python", "server.py"]
