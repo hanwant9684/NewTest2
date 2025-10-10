@@ -129,20 +129,30 @@ async def auto_add_owner_as_admin(_, message: Message):
 @register_user
 async def start(_, message: Message):
     welcome_text = (
-        "**Welcome to Save Restricted Content Bot!**\n\n"
-        "📱 **Get Started:**\n"
-        "1. Login with your phone number: `/login +1234567890`\n"
-        "2. Enter the OTP code you receive\n"
-        "3. Start downloading from your joined channels!\n\n"
-        "💎 **Premium Options:**\n"
-        "🆓 **FREE Premium** - Watch ads to get 30 minutes of premium!\n"
-        "   → Use `/getpremium` to get your ad link\n"
-        "   → Watch ads for 30 seconds\n"
-        "   → Get unlimited downloads for 30 minutes!\n\n"
-        "💰 **Paid Premium** - $1 for 30 days unlimited access\n"
-        "   → Use `/upgrade` to view payment options\n\n"
-        "ℹ️ Use `/help` to view all commands and examples.\n\n"
-        "Ready? Login first with `/login <your_phone_number>`"
+        "🎉 **Welcome to Save Restricted Content Bot!**\n\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "🚀 **Quick Start Guide:**\n\n"
+        "**Step 1:** Login with your phone\n"
+        "   📱 Use: `/login +1234567890`\n\n"
+        "**Step 2:** Verify with OTP\n"
+        "   🔐 Enter the code you receive\n\n"
+        "**Step 3:** Start downloading!\n"
+        "   📥 Just paste any Telegram link\n\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "💎 **Get Premium Access:**\n\n"
+        "🎁 **Option 1: FREE (Watch Ads)**\n"
+        "   ⏱️ 30 minutes of premium\n"
+        "   📺 Just watch short ads\n"
+        "   ♻️ Repeat anytime!\n"
+        "   👉 Use: `/getpremium`\n\n"
+        "💰 **Option 2: Paid ($1/month)**\n"
+        "   ⭐ 30 days unlimited access\n"
+        "   🚀 Priority downloads\n"
+        "   📦 Batch download support\n"
+        "   👉 Use: `/upgrade`\n\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "ℹ️ **Need help?** Use `/help` for all commands\n\n"
+        "🔑 **Ready to start?** Login now with `/login <phone>`"
     )
 
     # Verify attribution
@@ -172,47 +182,83 @@ async def start(_, message: Message):
 @bot.on_message(filters.command("help") & filters.private)
 @register_user
 async def help_command(_, message: Message):
-    help_text = (
-        "💡 **Media Downloader Bot Help**\n\n"
-        "➤ **Download Media**\n"
-        "   – Send `/dl <post_URL>` **or** just paste a Telegram post link to fetch photos, videos, audio, or documents.\n\n"
-        "➤ **Batch Download** (Premium Only)\n"
-        "   – Send `/bdl start_link end_link` to grab a series of posts in one go.\n"
-        "     💡 Example: `/bdl https://t.me/mychannel/100 https://t.me/mychannel/120`\n"
-        "**It will download all posts from ID 100 to 120.**\n\n"
-        "➤ **Download Queue System** 🆕\n"
-        "   – Max 20 concurrent downloads + 100 waiting queue\n"
-        "   – 👑 Premium users get priority in queue!\n"
-        "   – `/queue` - Check your queue position\n"
-        "   – `/canceldownload` - Cancel your download\n\n"
-        "➤ **Login with Phone Number**\n"
-        "   – `/login +1234567890` - Start login process\n"
-        "   – `/verify 1 2 3 4 5` - Enter OTP with spaces between digits\n"
-        "   – `/password your_2fa_password` - Enter 2FA password (if enabled)\n"
-        "   – `/logout` - Logout from your account\n"
-        "   – `/cancel` - Cancel pending authentication\n\n"
-        "➤ **Premium Commands**\n"
-        "   – `/getpremium` - Watch ads to get FREE premium (30 minutes)\n"
-        "   – `/verifypremium <code>` - Verify ad completion code\n"
-        "   – `/upgrade` - View all premium options ($1/month or watch ads)\n"
-        "   – 💡 Premium = Priority queue + Unlimited downloads!\n\n"
-        "➤ **User Commands**\n"
-        "   – `/myinfo` - View your account information\n\n"
-        "➤ **Limits**\n"
-        "   – Free users: 5 downloads per day\n"
-        "   – Premium users: Unlimited downloads\n"
-        "   – Queue: 20 active + 100 waiting\n"
-        "   – Batch download: Max 20 posts at a time\n\n"
-        "➤ **Admin Commands**\n"
-        "   – `/qstatus` - View global queue status\n"
-        "   – `/killall` - Cancel all downloads\n"
-        "   – `/logs` - Download bot logs\n\n"
-        "➤ **Stats**\n"
-        "   – Send `/stats` to view current status\n\n"
-        "**Example**:\n"
-        "  • `/dl https://t.me/Wolfy004`\n"
-        "  • `https://t.me/Wolfy004`"
-    )
+    user_id = message.from_user.id
+    user_type = db.get_user_type(user_id)
+    is_premium = user_type == 'paid'
+    
+    if is_premium:
+        help_text = (
+            "👑 **Premium User - Help Guide**\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "📥 **Download Commands:**\n\n"
+            "**Single Download:**\n"
+            "   `/dl <link>` or just paste a link\n"
+            "   📺 Videos • 🖼️ Photos • 🎵 Audio • 📄 Documents\n\n"
+            "**Batch Download:**\n"
+            "   `/bdl <start_link> <end_link>`\n"
+            "   💡 Example: `/bdl https://t.me/channel/100 https://t.me/channel/120`\n"
+            "   📦 Downloads all posts from 100 to 120 (max 20)\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "🚀 **Queue System:**\n\n"
+            "   👑 **Premium Priority** - Jump ahead in queue!\n"
+            "   `/queue` - Check your position\n"
+            "   `/canceldownload` - Cancel current download\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "🔐 **Authentication:**\n\n"
+            "   `/login +1234567890` - Login with phone\n"
+            "   `/verify 1 2 3 4 5` - Enter OTP code\n"
+            "   `/password <2FA>` - Enter 2FA password\n"
+            "   `/logout` - Logout from account\n"
+            "   `/cancel` - Cancel pending auth\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "ℹ️ **Other Commands:**\n\n"
+            "   `/myinfo` - View account details\n"
+            "   `/stats` - Bot statistics\n\n"
+            "💡 **Your Benefits:**\n"
+            "   ✅ Unlimited downloads\n"
+            "   ✅ Priority queue access\n"
+            "   ✅ Batch download (up to 20 posts)\n"
+            "   ✅ No daily limits"
+        )
+    else:
+        help_text = (
+            "🆓 **Free User - Help Guide**\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "📥 **Download Commands:**\n\n"
+            "**Single Download:**\n"
+            "   `/dl <link>` or just paste a link\n"
+            "   📺 Videos • 🖼️ Photos • 🎵 Audio • 📄 Documents\n\n"
+            "⚠️ **Your Limits:**\n"
+            "   📊 5 downloads per day\n"
+            "   ⏳ Normal queue priority\n"
+            "   ❌ No batch downloads\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "💎 **Upgrade to Premium:**\n\n"
+            "🎁 **FREE Premium (Watch Ads):**\n"
+            "   `/getpremium` - Get 30 min premium\n"
+            "   📺 Watch short ads\n"
+            "   ♻️ Repeat anytime!\n\n"
+            "💰 **Paid Premium ($1/month):**\n"
+            "   `/upgrade` - View payment options\n"
+            "   ⭐ 30 days unlimited access\n"
+            "   🚀 Priority downloads\n"
+            "   📦 Batch download support\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "🚀 **Queue System:**\n\n"
+            "   `/queue` - Check your position\n"
+            "   `/canceldownload` - Cancel download\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "🔐 **Authentication:**\n\n"
+            "   `/login +1234567890` - Login with phone\n"
+            "   `/verify 1 2 3 4 5` - Enter OTP code\n"
+            "   `/password <2FA>` - Enter 2FA password\n"
+            "   `/logout` - Logout from account\n"
+            "   `/cancel` - Cancel pending auth\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "ℹ️ **Other Commands:**\n\n"
+            "   `/myinfo` - View account details\n"
+            "   `/stats` - Bot statistics"
+        )
 
     markup = InlineKeyboardMarkup(
         [[InlineKeyboardButton("📢 Update Channel", url=get_channel_link(primary=True))]]
@@ -341,6 +387,25 @@ async def handle_download(bot: Client, message: Message, post_url: str, user_cli
             # Only increment usage after successful download
             if increment_usage:
                 db.increment_usage(message.from_user.id)
+                
+                # Show upgrade buttons for free users (but not if they have ad-based premium)
+                user_type = db.get_user_type(message.from_user.id)
+                user_data = db.get_user(message.from_user.id)
+                premium_source = user_data.get('premium_source') if user_data else None
+                
+                # Show buttons only if: user is free AND doesn't have ad-based premium active
+                if user_type == 'free' and premium_source != 'ads':
+                    upgrade_markup = InlineKeyboardMarkup([
+                        [
+                            InlineKeyboardButton("🎁 FREE Premium (Ads)", callback_data="get_free_premium"),
+                            InlineKeyboardButton("💰 $1 Premium", callback_data="get_paid_premium")
+                        ]
+                    ])
+                    await message.reply(
+                        "✅ **Download Complete!**\n\n"
+                        "💎 Want unlimited downloads? Get premium now:",
+                        reply_markup=upgrade_markup
+                    )
 
         elif chat_message.text or chat_message.caption:
             await message.reply(parsed_text or parsed_caption)
@@ -1042,7 +1107,24 @@ async def myinfo_handler(client: Client, message: Message):
 # Callback query handler
 @bot.on_callback_query()
 async def callback_handler(client: Client, callback_query: CallbackQuery):
-    await broadcast_callback_handler(client, callback_query)
+    data = callback_query.data
+    
+    if data == "get_free_premium":
+        await callback_query.answer()
+        await callback_query.message.reply(
+            "🎁 **Get FREE Premium!**\n\n"
+            "Watch short ads and get 30 minutes of premium access!\n\n"
+            "👉 Use command: `/getpremium`"
+        )
+    elif data == "get_paid_premium":
+        await callback_query.answer()
+        await callback_query.message.reply(
+            "💰 **Get Paid Premium!**\n\n"
+            "$1 for 30 days of unlimited access!\n\n"
+            "👉 Use command: `/upgrade`"
+        )
+    else:
+        await broadcast_callback_handler(client, callback_query)
 
 # Start queue processor in background when module loads
 def _init_queue():

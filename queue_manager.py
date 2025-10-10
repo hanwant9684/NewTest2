@@ -105,10 +105,19 @@ class DownloadQueueManager:
                 task = asyncio.create_task(self._execute_download(user_id, download_coro, message))
                 self.active_tasks[user_id] = task
                 
-                return True, (
-                    f"✅ **Download started!**\n\n"
-                    f"🔄 **Active Downloads:** {len(self.active_downloads)}/{self.max_concurrent}"
-                )
+                status_msg = f"✅ **Download started!**\n\n🔄 **Active Downloads:** {len(self.active_downloads)}/{self.max_concurrent}"
+                asyncio.create_task(self._send_auto_delete_message(message, status_msg, 10))
+                
+                return True, None
+    
+    async def _send_auto_delete_message(self, message, text: str, delete_after: int):
+        """Send a message and auto-delete it after specified seconds"""
+        try:
+            sent_msg = await message.reply(text)
+            await asyncio.sleep(delete_after)
+            await sent_msg.delete()
+        except Exception as e:
+            LOGGER(__name__).debug(f"Failed to auto-delete message: {e}")
     
     async def _execute_download(self, user_id: int, download_coro, message):
         try:
@@ -143,10 +152,8 @@ class DownloadQueueManager:
                         self.active_downloads.add(user_id)
                         
                         try:
-                            await queue_item.message.reply(
-                                f"🚀 **Your download is starting now!**\n\n"
-                                f"📥 Downloading: `{queue_item.post_url}`"
-                            )
+                            status_msg = f"🚀 **Your download is starting now!**\n\n📥 Downloading: `{queue_item.post_url}`"
+                            asyncio.create_task(self._send_auto_delete_message(queue_item.message, status_msg, 10))
                         except:
                             pass
                         

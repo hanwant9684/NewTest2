@@ -1,25 +1,113 @@
-[10-Oct-25 08:02:45 AM - INFO] - __init__() - Line 22: database - Successfully connected to MongoDB!
-[10-Oct-25 08:02:47 AM - INFO] - init_database() - Line 53: database - Database indexes created successfully
-[10-Oct-25 08:02:47 AM - INFO] - __init__() - Line 27: ad_monetization - Monetag ad network configured with 2 ad slot(s)
-[10-Oct-25 08:02:47 AM - INFO] - _log() - Line 97: werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+[10-Oct-25 09:04:22 AM - INFO] - __init__() - Line 22: database - Successfully connected to MongoDB!
+[10-Oct-25 09:04:24 AM - INFO] - init_database() - Line 53: database - Database indexes created successfully
+[10-Oct-25 09:04:24 AM - INFO] - __init__() - Line 27: ad_monetization - Monetag ad network configured with 2 ad slot(s)
+[10-Oct-25 09:04:24 AM - INFO] - _log() - Line 97: werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5000
- * Running on http://172.31.102.2:5000
-[10-Oct-25 08:02:47 AM - INFO] - _log() - Line 97: werkzeug - [33mPress CTRL+C to quit[0m
-[10-Oct-25 08:02:48 AM - INFO] - __init__() - Line 36: queue_manager - Queue Manager initialized: 20 concurrent, 100 max queue
-[10-Oct-25 08:02:48 AM - INFO] - start_processor() - Line 42: queue_manager - Queue processor started
-[10-Oct-25 08:02:48 AM - INFO] - _init_queue() - Line 1053: main - Download queue processor initialized
-[10-Oct-25 08:02:48 AM - INFO] - verify_and_log() - Line 62: attribution - Bot initialized - Creator: @Wolfy004
-[10-Oct-25 08:02:48 AM - INFO] - start_bot() - Line 84: __main__ - Starting Telegram bot from server.py (long polling)
-[10-Oct-25 08:02:49 AM - INFO] - start_bot() - Line 86: __main__ - Bot started successfully, waiting for updates...
-[10-Oct-25 08:02:50 AM - INFO] - _log() - Line 97: werkzeug - 172.31.102.2 - - [10/Oct/2025 08:02:50] "GET / HTTP/1.1" 200 -
-[10-Oct-25 08:04:53 AM - INFO] - get_premium_command() - Line 838: main - get_premium_command triggered by user 721236024
-[10-Oct-25 08:04:53 AM - INFO] - get_app_url() - Line 114: config - Detected Replit domain: https://2bd3f09e-1e41-444d-b4e1-462b70ee8f25-00-2drsravmglnf8.kirk.replit.dev
-[10-Oct-25 08:04:53 AM - INFO] - create_ad_session() - Line 42: ad_monetization - Created ad session cdf56bbcd4cc6b2a53b8d7fe16e49234 for user 721236024
-[10-Oct-25 08:04:53 AM - INFO] - generate_ad_link() - Line 149: ad_monetization - Generated Monetag ad links for user 721236024 - Configured slots: [1, 2]
-[10-Oct-25 08:04:54 AM - INFO] - get_premium_command() - Line 896: main - User 721236024 requested ad-based premium
-[10-Oct-25 08:04:57 AM - INFO] - _log() - Line 97: werkzeug - 172.31.102.2 - - [10/Oct/2025 08:04:57] "GET /watch-ad?session=cdf56bbcd4cc6b2a53b8d7fe16e49234&ad1_url=https://otieu.com/4/9979437?subid%3D466769d1&ad2_url=https://otieu.com/4/10014680?subid%3D466769d1 HTTP/1.1" 200 -
-[10-Oct-25 08:05:01 AM - INFO] - _log() - Line 97: werkzeug - 172.31.102.2 - - [10/Oct/2025 08:05:01] "GET / HTTP/1.1" 200 -
-[10-Oct-25 08:06:00 AM - INFO] - _generate_verification_code() - Line 83: ad_monetization - Generated verification code CB71EA8D for user 721236024
-[10-Oct-25 08:06:00 AM - INFO] - verify_ad_completion() - Line 75: ad_monetization - User 721236024 completed ad session cdf56bbcd4cc6b2a53b8d7fe16e49234, generated code CB71EA8D
-[10-Oct-25 08:06:00 AM - INFO] - _log() - Line 97: werkzeug - 172.31.102.2 - - [10/Oct/2025 08:06:00] "POST /api/verify-session HTTP/1.1" 200 -
+ * Running on http://172.31.75.66:5000
+[10-Oct-25 09:04:24 AM - INFO] - _log() - Line 97: werkzeug - [33mPress CTRL+C to quit[0m
+[10-Oct-25 09:04:25 AM - INFO] - __init__() - Line 36: queue_manager - Queue Manager initialized: 20 concurrent, 100 max queue
+[10-Oct-25 09:04:25 AM - INFO] - start_processor() - Line 42: queue_manager - Queue processor started
+[10-Oct-25 09:04:25 AM - INFO] - _init_queue() - Line 1135: main - Download queue processor initialized
+[10-Oct-25 09:04:25 AM - INFO] - verify_and_log() - Line 62: attribution - Bot initialized - Creator: @Wolfy004
+[10-Oct-25 09:04:25 AM - INFO] - start_bot() - Line 84: __main__ - Starting Telegram bot from server.py (long polling)
+[10-Oct-25 09:04:27 AM - INFO] - start_bot() - Line 86: __main__ - Bot started successfully, waiting for updates...
+[10-Oct-25 09:04:33 AM - INFO] - _log() - Line 97: werkzeug - 127.0.0.1 - - [10/Oct/2025 09:04:33] "GET / HTTP/1.1" 200 -
+[10-Oct-25 09:04:33 AM - INFO] - _log() - Line 97: werkzeug - 127.0.0.1 - - [10/Oct/2025 09:04:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[10-Oct-25 09:15:40 AM - INFO] - _log() - Line 97: werkzeug - 172.31.75.66 - - [10/Oct/2025 09:15:40] "GET / HTTP/1.1" 200 -
+[10-Oct-25 09:16:03 AM - INFO] - _log() - Line 97: werkzeug - 172.31.75.66 - - [10/Oct/2025 09:16:03] "GET / HTTP/1.1" 200 -
+[10-Oct-25 09:17:34 AM - INFO] - verify_and_log() - Line 62: attribution - Bot initialized - Creator: @Wolfy004
+[10-Oct-25 09:18:06 AM - ERROR] - _handle_exception() - Line 433: pyrogram.dispatcher - Unhandled exception: Telegram says: [400 MESSAGE_EMPTY] (caused by "messages.SendMessage") Pyrogram 2.3.68 thinks: The message sent is empty or contains invalid characters
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 378, in _dispatch_to_handlers
+    await self._execute_handler(handler, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 405, in _execute_handler
+    await handler.callback(self.client, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/handlers/message_handler.py", line 154, in resolve_future_or_callback
+    await self.original_callback(client, message, *args)
+  File "/home/runner/workspace/access_control.py", line 166, in wrapper
+    return await func(client, message)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/access_control.py", line 104, in wrapper
+    return await func(client, message)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/main.py", line 747, in handle_any_message
+    await message.reply(msg)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/types/messages_and_media/message.py", line 1610, in reply_text
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/methods/messages/send_message.py", line 212, in send_message
+    r = await self.invoke(rpc)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/methods/advanced/invoke.py", line 80, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/session/session.py", line 420, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/session/session.py", line 377, in send
+    RPCError.raise_it(result, type(data))
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/errors/rpc_error.py", line 93, in raise_it
+    raise getattr(
+pyrogram.errors.exceptions.bad_request_400.MessageEmpty: Telegram says: [400 MESSAGE_EMPTY] (caused by "messages.SendMessage") Pyrogram 2.3.68 thinks: The message sent is empty or contains invalid characters
+[10-Oct-25 09:18:07 AM - INFO] - handle_download() - Line 302: main - Downloading media from URL: https://t.me/c/2018320478/1753
+[10-Oct-25 09:18:13 AM - INFO] - handle_download() - Line 362: main - Downloaded media: /home/runner/workspace/downloads/757/IIM Major Test -02  @iimjaipur108.pdf
+[10-Oct-25 09:18:13 AM - INFO] - send_media() - Line 185: helpers.utils - Uploading media: /home/runner/workspace/downloads/757/IIM Major Test -02  @iimjaipur108.pdf (document)
+[10-Oct-25 09:18:17 AM - INFO] - cleanup_download() - Line 18: helpers.files - Cleaning Download: /home/runner/workspace/downloads/757/IIM Major Test -02  @iimjaipur108.pdf
+[10-Oct-25 09:18:19 AM - INFO] - _execute_download() - Line 135: queue_manager - Download completed for user 721236024. Active: 0
+[10-Oct-25 09:19:17 AM - ERROR] - _handle_exception() - Line 433: pyrogram.dispatcher - Unhandled exception: Telegram says: [400 MESSAGE_EMPTY] (caused by "messages.SendMessage") Pyrogram 2.3.68 thinks: The message sent is empty or contains invalid characters
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 378, in _dispatch_to_handlers
+    await self._execute_handler(handler, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 405, in _execute_handler
+    await handler.callback(self.client, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/handlers/message_handler.py", line 154, in resolve_future_or_callback
+    await self.original_callback(client, message, *args)
+  File "/home/runner/workspace/access_control.py", line 166, in wrapper
+    return await func(client, message)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/access_control.py", line 104, in wrapper
+    return await func(client, message)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/main.py", line 747, in handle_any_message
+    await message.reply(msg)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/types/messages_and_media/message.py", line 1610, in reply_text
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/methods/messages/send_message.py", line 212, in send_message
+    r = await self.invoke(rpc)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/sync.py", line 75, in coro_wrapper
+    return await asyncio.wrap_future(asyncio.run_coroutine_threadsafe(coroutine, main_loop))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/methods/advanced/invoke.py", line 80, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/session/session.py", line 420, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/session/session.py", line 377, in send
+    RPCError.raise_it(result, type(data))
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/errors/rpc_error.py", line 93, in raise_it
+    raise getattr(
+pyrogram.errors.exceptions.bad_request_400.MessageEmpty: Telegram says: [400 MESSAGE_EMPTY] (caused by "messages.SendMessage") Pyrogram 2.3.68 thinks: The message sent is empty or contains invalid characters
+[10-Oct-25 09:19:17 AM - INFO] - handle_download() - Line 302: main - Downloading media from URL: https://t.me/c/2922670555/741
+[10-Oct-25 09:19:20 AM - INFO] - handle_download() - Line 362: main - Downloaded media: /home/runner/workspace/downloads/763/(RPSC_ASSIGNMENT_&_ASSIGNMENT__20240213151116.pdf
+[10-Oct-25 09:19:20 AM - INFO] - send_media() - Line 185: helpers.utils - Uploading media: /home/runner/workspace/downloads/763/(RPSC_ASSIGNMENT_&_ASSIGNMENT__20240213151116.pdf (document)
+[10-Oct-25 09:19:24 AM - INFO] - cleanup_download() - Line 18: helpers.files - Cleaning Download: /home/runner/workspace/downloads/763/(RPSC_ASSIGNMENT_&_ASSIGNMENT__20240213151116.pdf
+[10-Oct-25 09:19:25 AM - INFO] - _execute_download() - Line 135: queue_manager - Download completed for user 7302712905. Active: 0
